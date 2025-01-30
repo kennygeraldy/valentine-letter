@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Letter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sakura-petals"></div>
+        <div class="particles-container"></div>
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="letter">
+                    <div class="text">
+                        <strong>Dear Wenny Bocil Taokeinoi,</strong>
+                        <p>
+                            Valentine's Day is just around the corner! On this special day, I would love to invite you to spend some time together.
+                        </p>
+                        <p> Event details: </p>
+                        <p> 📍 : Top Secret
+                            🕒 : 19.30pm
+                            👗 : Black Dress
+                        </p>
+                        <p>I hope you are as excited as me, and dont forget to make prior notice to ur supervisor. I'll pick you up at your house around 18:00pm.</p>
+                        <p>Thank you and see youu soon.</p>
+                        <strong>From Kennoyy</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="heart"></div>
+            <img class="nailong" src='https://tuchuang.org.cn/imgs/2024/12/03/18ab6f330ad90a3a.png' />          
+        </div>
+    </div>
+    <script>
+        function createSakuraPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'sakura-petal';
+
+        const startX = Math.random() * window.innerWidth;
+        petal.style.left = `${startX}px`;
+
+        const duration = 3 + Math.random() * 5;
+        petal.style.animationDuration = `${duration}s`;
+
+        const size = 10 + Math.random() * 10;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+
+        document.querySelector('.sakura-petals').appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, duration * 1000);
+        }
+
+        setInterval(createSakuraPetal, 500); 
+        const envelope = document.querySelector('.envelope-wrapper');
+        const particlesContainer = document.querySelector('.particles-container');
+        let particleInterval = null;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'love-particle';
+            
+            const padding = 50;
+            const randomX = padding + (Math.random() * (window.innerWidth - 2 * padding));
+            particle.style.left = `${randomX}px`;
+            
+            const xEnd = (Math.random() - 0.5) * 60;
+            particle.style.setProperty('--x-end', `${xEnd}px`);
+            
+            const duration = 2 + Math.random();
+            particle.style.animation = `particle-float ${duration}s linear forwards`;
+            
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        const nailongImg = document.querySelector('.nailong');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('flap');
+
+            if (envelope.classList.contains('flap')) {
+                particleInterval = setInterval(createParticle, 200);
+
+                setTimeout(() => {
+                    nailongImg.style.opacity = 1;
+                    nailongImg.style.animation = 'nailong-rise 0.7s ease-out forwards';
+
+                    setTimeout(() => {
+                        nailongImg.style.animation = 'nailong-exit 2.5s ease-in-out forwards';
+
+                        setTimeout(() => {
+                            nailongImg.style.animation = 'nailong-reappear 1.5s ease-out forwards';
+                            nailongImg.style.opacity = 1;
+                        }, 2500);
+                    }, 700);
+                }, 700);
+            } else {
+                clearInterval(particleInterval);
+                nailongImg.style.animation = '';
+                nailongImg.style.opacity = 0;
+            }
+        });
+
+    </script>
+</body>
+</html>
